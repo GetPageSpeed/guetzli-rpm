@@ -1,0 +1,5 @@
+*.log
+*.rpm
+
+*.tar.gz
+!/guetzli.1.gz

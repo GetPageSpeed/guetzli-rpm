@@ -1,3 +1,7 @@
+%if 0%{?rhel} == 6
+%define devtoolset 8
+%endif
+
 Summary:		It is an effective JPEG encoder
 Name:			guetzli
 Version:		1.0.1
@@ -8,7 +12,15 @@ URL:			https://github.com/google/guetzli
 Source0:		%{url}/archive/v%{version}.tar.gz
 Source1:		guetzli.1
 BuildRequires:	pkgconfig(libpng)
+%if 0%{?rhel} >= 7
 BuildRequires:	pkgconfig(libjpeg)
+%else
+BuildRequires:	libjpeg-turbo-devel
+%endif
+%if 0%{?devtoolset}
+BuildRequires: devtoolset-%{devtoolset}-gcc
+BuildRequires: devtoolset-%{devtoolset}-gcc-c++
+%endif
 
 %description
 Guetzli is a JPEG encoder that aims for excellent compression density 
@@ -38,6 +50,9 @@ sed -i 's@\./butteraugli@%{_bindir}/butteraugli@' tools/guetzli-compare.py
 sed -i 's@\./guetzli@%{_bindir}/guetzli@' tools/guetzli-compare.py
 
 %build
+%if 0%{?devtoolset}
+. /opt/rh/devtoolset-%{devtoolset}/enable
+%endif
 %make_build
 
 
@@ -53,6 +68,8 @@ sed -i 's@\./guetzli@%{_bindir}/guetzli@' tools/guetzli-compare.py
 
 
 %files
+# Virtually add license macro for EL6:
+%{!?_licensedir:%global license %%doc}
 %license LICENSE 
 %doc README.md 
 %{_bindir}/%{name}

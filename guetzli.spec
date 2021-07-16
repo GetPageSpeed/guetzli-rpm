@@ -46,6 +46,9 @@ Requires:	butteraugli
 %if 0%{?rhel} >= 8
   sed -i '1s@.*@#!/usr/libexec/platform-python@' tools/guetzli-compare.py
 %endif
+%if 0%{?fedora} >= 33
+  sed -i '1s@.*@#!/usr/bin/python3@' tools/guetzli-compare.py
+%endif
 sed -i 's@\./butteraugli@%{_bindir}/butteraugli@' tools/guetzli-compare.py
 sed -i 's@\./guetzli@%{_bindir}/guetzli@' tools/guetzli-compare.py
 

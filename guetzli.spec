@@ -5,7 +5,7 @@
 Summary:		It is an effective JPEG encoder
 Name:			guetzli
 Version:		1.0.1
-Release:		4%{?dist}.gps
+Release:		5%{?dist}.gps
 License:		ASL 2.0
 Group:			Graphical desktop/Other
 URL:			https://github.com/google/guetzli
